@@ -1,0 +1,9 @@
+node_modules
+peace-haven/node_modules
+peace-haven/dist
+.git
+.github
+__pycache__
+*.pyc
+agrodrone.db-shm
+agrodrone.db-wal
