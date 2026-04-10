@@ -1,0 +1,32 @@
+- name: Configure Peace Haven Agrodrone Server
+  hosts: agrodrone_servers
+  become: yes
+
+  tasks:
+    - name: Update apt packages
+      apt:
+        update_cache: yes
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Pull latest app image
+      docker_image:
+        name: dicson005/peace-haven-agrodrone:latest
+        source: pull
+
+    - name: Run the app container
+      docker_container:
+        name: agrodrone
+        image: dicson005/peace-haven-agrodrone:latest
+        ports:
+          - "8000:8000"
+        state: started
